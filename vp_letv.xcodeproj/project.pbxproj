@@ -1,0 +1,403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FD0CCC5A1BAEE47D008FD9BF /* letv.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0CCC591BAEE47D008FD9BF /* letv.m */; settings = {ASSET_TAGS = (); }; };
+		FD0CCC5D1BAEE73D008FD9BF /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD0CCC5C1BAEE73D008FD9BF /* Settings.xib */; settings = {ASSET_TAGS = (); }; };
+		FD0CCC5F1BAEE8F0008FD9BF /* Inject.js in Resources */ = {isa = PBXBuildFile; fileRef = FD0CCC5E1BAEE8F0008FD9BF /* Inject.js */; settings = {ASSET_TAGS = (); }; };
+		FD5984841BB5E2AE001E0B17 /* vp_letv_test.m in Sources */ = {isa = PBXBuildFile; fileRef = FD5984831BB5E2AE001E0B17 /* vp_letv_test.m */; };
+		FD59848D1BB5E5C3001E0B17 /* letv.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0CCC591BAEE47D008FD9BF /* letv.m */; settings = {ASSET_TAGS = (); }; };
+		FD5984931BB5E98F001E0B17 /* VPPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5984921BB5E98F001E0B17 /* VPPlugin.framework */; settings = {ASSET_TAGS = (); }; };
+		FD5984941BB5E98F001E0B17 /* VPPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5984921BB5E98F001E0B17 /* VPPlugin.framework */; settings = {ASSET_TAGS = (); }; };
+		FD5984951BB5E9D0001E0B17 /* VPPlugin.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FD5984921BB5E98F001E0B17 /* VPPlugin.framework */; };
+		FD59849A1BB5F589001E0B17 /* selectStream.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD5984991BB5F589001E0B17 /* selectStream.xib */; settings = {ASSET_TAGS = (); }; };
+		FD59849B1BB5F589001E0B17 /* selectStream.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD5984991BB5F589001E0B17 /* selectStream.xib */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FD59848B1BB5E48E001E0B17 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				FD5984951BB5E9D0001E0B17 /* VPPlugin.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FD0CCC591BAEE47D008FD9BF /* letv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = letv.m; sourceTree = "<group>"; };
+		FD0CCC5B1BAEE488008FD9BF /* letv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = letv.h; sourceTree = "<group>"; };
+		FD0CCC5C1BAEE73D008FD9BF /* Settings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
+		FD0CCC5E1BAEE8F0008FD9BF /* Inject.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Inject.js; sourceTree = "<group>"; };
+		FD47B9E51BAECBDE00BAF397 /* letv.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = letv.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD47B9E81BAECBDE00BAF397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD5984811BB5E2AE001E0B17 /* vp.letv.test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vp.letv.test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD5984831BB5E2AE001E0B17 /* vp_letv_test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vp_letv_test.m; sourceTree = "<group>"; };
+		FD5984851BB5E2AE001E0B17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD5984921BB5E98F001E0B17 /* VPPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VPPlugin.framework; sourceTree = SOURCE_ROOT; };
+		FD5984991BB5F589001E0B17 /* selectStream.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = selectStream.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FD47B9E21BAECBDE00BAF397 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD5984931BB5E98F001E0B17 /* VPPlugin.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD59847E1BB5E2AE001E0B17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD5984941BB5E98F001E0B17 /* VPPlugin.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FD47B9DC1BAECBDE00BAF397 = {
+			isa = PBXGroup;
+			children = (
+				FD47B9E71BAECBDE00BAF397 /* plugin */,
+				FD5984821BB5E2AE001E0B17 /* vp.letv.test */,
+				FD47B9E61BAECBDE00BAF397 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FD47B9E61BAECBDE00BAF397 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FD47B9E51BAECBDE00BAF397 /* letv.bundle */,
+				FD5984811BB5E2AE001E0B17 /* vp.letv.test.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FD47B9E71BAECBDE00BAF397 /* plugin */ = {
+			isa = PBXGroup;
+			children = (
+				FD5984921BB5E98F001E0B17 /* VPPlugin.framework */,
+				FD47B9E81BAECBDE00BAF397 /* Info.plist */,
+				FD0CCC5B1BAEE488008FD9BF /* letv.h */,
+				FD0CCC591BAEE47D008FD9BF /* letv.m */,
+				FD0CCC5C1BAEE73D008FD9BF /* Settings.xib */,
+				FD5984991BB5F589001E0B17 /* selectStream.xib */,
+				FD0CCC5E1BAEE8F0008FD9BF /* Inject.js */,
+			);
+			path = plugin;
+			sourceTree = "<group>";
+		};
+		FD5984821BB5E2AE001E0B17 /* vp.letv.test */ = {
+			isa = PBXGroup;
+			children = (
+				FD5984831BB5E2AE001E0B17 /* vp_letv_test.m */,
+				FD5984851BB5E2AE001E0B17 /* Info.plist */,
+			);
+			path = vp.letv.test;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FD47B9E41BAECBDE00BAF397 /* vp_letv */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD47B9EB1BAECBDE00BAF397 /* Build configuration list for PBXNativeTarget "vp_letv" */;
+			buildPhases = (
+				FD47B9E11BAECBDE00BAF397 /* Sources */,
+				FD47B9E21BAECBDE00BAF397 /* Frameworks */,
+				FD47B9E31BAECBDE00BAF397 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vp_letv;
+			productName = plugin;
+			productReference = FD47B9E51BAECBDE00BAF397 /* letv.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		FD5984801BB5E2AE001E0B17 /* vp.letv.test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD5984861BB5E2AE001E0B17 /* Build configuration list for PBXNativeTarget "vp.letv.test" */;
+			buildPhases = (
+				FD59847D1BB5E2AE001E0B17 /* Sources */,
+				FD59847E1BB5E2AE001E0B17 /* Frameworks */,
+				FD59847F1BB5E2AE001E0B17 /* Resources */,
+				FD59848B1BB5E48E001E0B17 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vp.letv.test;
+			productName = vp.letv.test;
+			productReference = FD5984811BB5E2AE001E0B17 /* vp.letv.test.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FD47B9DD1BAECBDE00BAF397 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = TYPCN;
+				TargetAttributes = {
+					FD47B9E41BAECBDE00BAF397 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					FD5984801BB5E2AE001E0B17 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = FD47B9E01BAECBDE00BAF397 /* Build configuration list for PBXProject "vp_letv" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FD47B9DC1BAECBDE00BAF397;
+			productRefGroup = FD47B9E61BAECBDE00BAF397 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FD47B9E41BAECBDE00BAF397 /* vp_letv */,
+				FD5984801BB5E2AE001E0B17 /* vp.letv.test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FD47B9E31BAECBDE00BAF397 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD0CCC5D1BAEE73D008FD9BF /* Settings.xib in Resources */,
+				FD59849A1BB5F589001E0B17 /* selectStream.xib in Resources */,
+				FD0CCC5F1BAEE8F0008FD9BF /* Inject.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD59847F1BB5E2AE001E0B17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD59849B1BB5F589001E0B17 /* selectStream.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FD47B9E11BAECBDE00BAF397 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD0CCC5A1BAEE47D008FD9BF /* letv.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD59847D1BB5E2AE001E0B17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD59848D1BB5E5C3001E0B17 /* letv.m in Sources */,
+				FD5984841BB5E2AE001E0B17 /* vp_letv_test.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FD47B9E91BAECBDE00BAF397 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FD47B9EA1BAECBDE00BAF397 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FD47B9EC1BAECBDE00BAF397 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = plugin/Info.plist;
+				INSTALL_PATH = "/Users/typcn/Library/Application Support/com.typcn.bilibili/Plugins";
+				PRODUCT_BUNDLE_IDENTIFIER = com.typcn.vp.letv;
+				PRODUCT_NAME = letv;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		FD47B9ED1BAECBDE00BAF397 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = plugin/Info.plist;
+				INSTALL_PATH = "/Users/typcn/Library/Application Support/com.typcn.bilibili/Plugins";
+				PRODUCT_BUNDLE_IDENTIFIER = com.typcn.vp.letv;
+				PRODUCT_NAME = letv;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		FD5984871BB5E2AE001E0B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = vp.letv.test/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.typcn.vp-letv-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FD5984881BB5E2AE001E0B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = vp.letv.test/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.typcn.vp-letv-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FD47B9E01BAECBDE00BAF397 /* Build configuration list for PBXProject "vp_letv" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD47B9E91BAECBDE00BAF397 /* Debug */,
+				FD47B9EA1BAECBDE00BAF397 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD47B9EB1BAECBDE00BAF397 /* Build configuration list for PBXNativeTarget "vp_letv" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD47B9EC1BAECBDE00BAF397 /* Debug */,
+				FD47B9ED1BAECBDE00BAF397 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD5984861BB5E2AE001E0B17 /* Build configuration list for PBXNativeTarget "vp.letv.test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD5984871BB5E2AE001E0B17 /* Debug */,
+				FD5984881BB5E2AE001E0B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FD47B9DD1BAECBDE00BAF397 /* Project object */;
+}
