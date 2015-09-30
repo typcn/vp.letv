@@ -11,13 +11,16 @@
 
 @interface letv (){
     NSMutableArray *addrs;
-    NSArray *sel_addr;
+    NSString *sel_addr;
+    NSString *sel_streamid;
+    NSString *m3u8_addr;
 }
 
 @property (strong) NSWindowController* settingsPanel;
 @property (strong) NSWindowController* streamSelPanel;
 @property (weak) IBOutlet NSButton *internalPlayBtn;
 @property (weak) IBOutlet NSButton *QTPlayBtn;
+@property (weak) IBOutlet NSTextField *loadText;
 
 @end
 
@@ -37,6 +40,39 @@
 - (bool)unload{
     
     return true;
+}
+
+const char * letv_decryptM3U8(const char *resdata,size_t alen){
+    char *l1;
+    char *l2;
+    l1 = strstr(resdata,"VC_01");
+    l2 = strstr(resdata,"vc_01");
+    if(!l1 && !l2){
+        return resdata; // Not encrypted
+    }else{
+        int datalen = (int)alen - 5;
+        char m3u8data[datalen];
+        memcpy(m3u8data, resdata + 5, sizeof(m3u8data));
+        
+        char fkres[datalen*2];
+        for(int i = 0; i < datalen ; i++){
+            fkres[2*i] = (unsigned char)m3u8data[i] >> 0x4;
+            fkres[2*i+1]= (unsigned char)m3u8data[i] & 0xf;
+        }
+        int alllen = (int)sizeof(fkres);
+        int sublen = (int)(alllen - 11);
+        char *fkres_ptr = &fkres[0];
+        char swappedData[datalen*3];
+        memcpy(swappedData, fkres_ptr + sublen, alllen - sublen);
+        memcpy(swappedData + (alllen - sublen), fkres_ptr, sublen);
+        
+        char realM3u8Data[datalen];
+        for(int i = 0; i < datalen ; i++){
+            realM3u8Data[i] = (swappedData[2 * i] << 4) + swappedData[2*i+1];
+        }
+        char* p = &realM3u8Data[0];
+        return (const char *)p;
+    }
 }
 
 int letv_convKey(int v , int key){
@@ -184,7 +220,83 @@ int letv_getTKey(int time){
     if(!object){
         return NO;
     }
+    sel_streamid = [[[[object objectAtIndex:0]
+                    stringByReplacingOccurrencesOfString:@"高清-" withString:@""]
+                    stringByReplacingOccurrencesOfString:@"Kbps" withString:@""]
+                                                                lowercaseString];
     sel_addr = [object objectAtIndex:1];
+    
+    [self.loadText setStringValue:@"解析中"];
+    
+    NSString *str = [NSString stringWithFormat:@"%@&ctv=pc&m3v=1&termid=1&format=1&hwtype=un&ostype=MacOS10.11.0&tag=letv&sign=letv&expect=3&tn=%u&pay=0&iscpn=f9051&rateid=%@",
+                     sel_addr,arc4random(),sel_streamid];
+    NSLog(@"VideoMetaData URL %@",str);
+    NSURL* URL = [NSURL URLWithString:str];
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"GET";
+    
+    NSUserDefaults *settingsController = [NSUserDefaults standardUserDefaults];
+    NSString *xff = [settingsController objectForKey:@"xff"];
+    if([xff length] > 4){
+        [request setValue:xff forHTTPHeaderField:@"X-Forwarded-For"];
+        [request setValue:xff forHTTPHeaderField:@"Client-IP"];
+    }
+    
+    [request addValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.99 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
+    
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    NSData * playJSONData = [NSURLConnection sendSynchronousRequest:request
+                                                          returningResponse:&response
+                                                                      error:&error];
+    if(error || !playJSONData){
+        [self.loadText setStringValue:@"网络错误"];
+        return NO;
+    }
+
+    NSError *jsonError;
+    NSDictionary *videoResult = [NSJSONSerialization JSONObjectWithData:playJSONData options:NSJSONReadingMutableContainers error:&jsonError];
+    
+    if(jsonError){
+        [self.loadText setStringValue:@"JSON 错误"];
+        NSLog(@"JSON ERROR:%@",jsonError);
+        return NO;
+    }
+    
+    m3u8_addr = videoResult[@"location"];
+    
+    if(!m3u8_addr){
+        [self.loadText setStringValue:@"解析失败"];
+        return NO;
+    }
+    
+    [self.loadText setStringValue:@"载入流信息"];
+    
+    URL = [NSURL URLWithString:m3u8_addr];
+    request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"GET";
+
+    if([xff length] > 4){
+        [request setValue:xff forHTTPHeaderField:@"X-Forwarded-For"];
+        [request setValue:xff forHTTPHeaderField:@"Client-IP"];
+    }
+    
+    [request addValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.99 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
+    
+    NSData * playM3U8Data = [NSURLConnection sendSynchronousRequest:request
+                                                  returningResponse:&response
+                                                              error:&error];
+    if(error || !playM3U8Data){
+        [self.loadText setStringValue:@"网络错误"];
+        return NO;
+    }
+    
+    [self.loadText setStringValue:@"解密流信息"];
+    
+    const char *result = letv_decryptM3U8([playM3U8Data bytes],[playM3U8Data length]);
+    
+    
+    
     [self.internalPlayBtn setEnabled:YES];
     [self.QTPlayBtn setEnabled:YES];
     return YES;

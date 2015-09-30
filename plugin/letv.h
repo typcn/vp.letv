@@ -12,6 +12,9 @@
 #import <Cocoa/Cocoa.h>
 #import <VPPlugin/VPPlugin.h>
 
+const char* letv_decryptM3U8(const char *resdata,size_t len);
+int letv_getTKey(int time);
+
 @interface letv : VP_Plugin
 
 // trigger on load , version is program build number ( eg: 206 )

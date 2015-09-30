@@ -33,5 +33,16 @@
     [le processEvent:@"letv-playvideo" :@"23075561"];
 }
 
+- (void)testDecrypt {
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *path = [bundle pathForResource:@"testdata" ofType:@"m3u8"];
+    NSData *encrypted_m3u8 = [NSData dataWithContentsOfFile:path];
+    
+    
+    const char *result = letv_decryptM3U8([encrypted_m3u8 bytes],[encrypted_m3u8 length]);
+    NSData *data = [NSData dataWithBytes:result length:[encrypted_m3u8 length]];
+    NSString* newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    NSLog(@"Result: %@",newStr);
+}
 
 @end
