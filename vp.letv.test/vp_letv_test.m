@@ -41,6 +41,7 @@
     
     const char *result = letv_decryptM3U8([encrypted_m3u8 bytes],[encrypted_m3u8 length]);
     NSData *data = [NSData dataWithBytes:result length:[encrypted_m3u8 length]];
+    free(result);
     NSString* newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
     NSLog(@"Result: %@",newStr);
 }

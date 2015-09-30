@@ -15,6 +15,7 @@
     NSString *sel_streamid;
     NSString *evt_videoid;
     NSString *m3u8_addr;
+    bool    asyncOpStatus;
 }
 
 @property (strong) NSWindowController* settingsPanel;
@@ -54,25 +55,28 @@ const char * letv_decryptM3U8(const char *resdata,size_t alen){
         int datalen = (int)alen - 5;
         char m3u8data[datalen];
         memcpy(m3u8data, resdata + 5, sizeof(m3u8data));
-        
-        char fkres[datalen*2];
+        char *fkres = malloc(datalen*2);
         for(int i = 0; i < datalen ; i++){
             fkres[2*i] = (unsigned char)m3u8data[i] >> 0x4;
             fkres[2*i+1]= (unsigned char)m3u8data[i] & 0xf;
         }
-        int alllen = (int)sizeof(fkres);
-        int sublen = (int)(alllen - 11);
-        char *fkres_ptr = &fkres[0];
-        char swappedData[datalen*3];
-        memcpy(swappedData, fkres_ptr + sublen, alllen - sublen);
-        memcpy(swappedData + (alllen - sublen), fkres_ptr, sublen);
+        int alllen = datalen*2;
+        int sublen = (alllen - 11);
+        char *swappedData = malloc(alllen);
+        memcpy(swappedData, fkres + sublen, alllen - sublen);
+        memcpy(swappedData + (alllen - sublen), fkres, sublen);
         
-        char realM3u8Data[datalen];
+        free(fkres);
+        
+        char *realM3u8Data = malloc(datalen+1);
         for(int i = 0; i < datalen ; i++){
             realM3u8Data[i] = (swappedData[2 * i] << 4) + swappedData[2*i+1];
         }
-        char* p = &realM3u8Data[0];
-        return (const char *)p;
+        realM3u8Data[datalen + 1] = '\0';
+        
+        free(swappedData);
+        
+        return (const char *)realM3u8Data;
     }
 }
 
@@ -324,8 +328,11 @@ int letv_getTKey(int time){
     if(!object){
         return NO;
     }
+    if(asyncOpStatus){
+        return NO;
+    }
+    asyncOpStatus = true;
     [self.internalPlayBtn setEnabled:NO];
-    [self.QTPlayBtn setEnabled:NO];
     sel_streamid = [[[[object objectAtIndex:0]
                     stringByReplacingOccurrencesOfString:@"高清-" withString:@""]
                     stringByReplacingOccurrencesOfString:@"Kbps" withString:@""]
@@ -339,6 +346,7 @@ int letv_getTKey(int time){
         
         if(!m3u8_addr){
             [self setText:@"解析失败"];
+            asyncOpStatus = false;
             return;
         }
         
@@ -347,6 +355,7 @@ int letv_getTKey(int time){
         NSData * m3u8_data = [self getM3U8Data];
         if(!m3u8_data){
             [self setText:@"网络错误"];
+            asyncOpStatus = false;
             return;
         }
         
@@ -360,6 +369,8 @@ int letv_getTKey(int time){
         sel_addr = [[NSURL URLWithString:path] absoluteString];
         [self setText:@"解析成功"];
         [self.internalPlayBtn setEnabled:YES];
+        
+        asyncOpStatus = false;
     });
     
     return YES;
