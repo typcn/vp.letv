@@ -285,10 +285,8 @@ int letv_getTKey(int time){
 }
 
 - (NSData *)getM3U8Data{
-    NSString *str = [NSString stringWithFormat:@"http://g3.letv.cn%@&ctv=pc&m3v=1&termid=1&format=1&hwtype=un&ostype=MacOS10.11.0&tag=letv&sign=letv&expect=3&tn=%u&pay=0&iscpn=f9051&rateid=%@",
-                     sel_addr,arc4random(),sel_streamid];
-    NSLog(@"VideoMetaData URL %@",str);
-    NSURL* URL = [NSURL URLWithString:str];
+    NSLog(@"VideoMetaData URL %@",m3u8_addr);
+    NSURL* URL = [NSURL URLWithString:m3u8_addr];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"GET";
     
