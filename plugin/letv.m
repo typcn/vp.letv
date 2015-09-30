@@ -156,21 +156,16 @@ int letv_getTKey(int time){
 }
 
 - (void)showStreamSelect:(NSString *)videoId{
-    if(addrs){
-        NSLog(@"already have play addr");
-        [self w_showStreamSelect];
-    }else{
-        dispatch_async(dispatch_get_global_queue(0, 0), ^(void){
-            bool suc = [self preloadLetvPlayAddr:videoId];
-            if(!suc){
-                NSAlert *alert = [[NSAlert alloc] init];
-                [alert setMessageText:@"视频解析失败，请稍后再试。如果持续无法使用，请点击帮助 -> 反馈"];
-                [alert runModal];
-            }else{
-                [self w_showStreamSelect];
-            }
-        });
-    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^(void){
+        bool suc = [self preloadLetvPlayAddr:videoId];
+        if(!suc){
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert setMessageText:@"视频解析失败，请稍后再试。如果持续无法使用，请点击帮助 -> 反馈"];
+            [alert runModal];
+        }else{
+            [self w_showStreamSelect];
+        }
+    });
 }
 
 - (void)w_showStreamSelect{

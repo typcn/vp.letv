@@ -22,6 +22,14 @@ if(!window.ins){
         if(m && m.length == 2){
             window.levid = m[1];
             setMsg();
+            try{
+                $('.juji_grid ul li a').unbind("click");
+                $('.juji_grid ul li a').click(function(e){
+                    window.location.href = window.location.href.replace(levid, e.delegateTarget.dataset.vid);
+                });
+            }catch(e){
+
+            }
         }
         if(!window.loadTimes){
             window.loadTimes = 1;
