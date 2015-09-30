@@ -91,7 +91,7 @@
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mjZ-ZD-3D5">
                         <rect key="frame" x="14" y="13" width="173" height="32"/>
                         <animations/>
-                        <buttonCell key="cell" type="push" title="使用 QuickTime 播放" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kk2-2p-49j">
+                        <buttonCell key="cell" type="push" title="使用 QuickTime 播放" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="Kk2-2p-49j">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>

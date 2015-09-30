@@ -329,7 +329,7 @@ int letv_getTKey(int time){
     [self.loadText setStringValue:@""];
     
     [self.internalPlayBtn setEnabled:YES];
-    [self.QTPlayBtn setEnabled:YES];
+    //[self.QTPlayBtn setEnabled:YES];
     return YES;
 }
 
