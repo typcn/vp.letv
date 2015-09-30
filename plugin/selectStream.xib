@@ -102,7 +102,7 @@
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fnR-L0-2Jo">
                         <rect key="frame" x="293" y="13" width="173" height="32"/>
                         <animations/>
-                        <buttonCell key="cell" type="push" title="使用 内置播放器 播放" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="11S-en-oCc">
+                        <buttonCell key="cell" type="push" title="播放视频" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="11S-en-oCc">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>

@@ -208,6 +208,7 @@ int letv_getTKey(int time){
 
 - (void)callSelf:(NSString *)name event:(NSString *)event{
     dispatch_async(dispatch_get_main_queue(), ^(void){
+        [settingsPanel close];
         NSURL* URL = [NSURL URLWithString:@"http://localhost:23330/pluginCall"];
         NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
         request.HTTPMethod = @"POST";
@@ -221,7 +222,6 @@ int letv_getTKey(int time){
         [connection scheduleInRunLoop:[NSRunLoop mainRunLoop]
                               forMode:NSDefaultRunLoopMode];
         [connection start];
-        [settingsPanel close];
     });
 }
 
