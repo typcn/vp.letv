@@ -13,6 +13,7 @@
     NSMutableArray *addrs;
     NSString *sel_addr;
     NSString *sel_streamid;
+    NSString *evt_videoid;
     NSString *m3u8_addr;
 }
 
@@ -92,6 +93,7 @@ int letv_getTKey(int time){
 }
 
 - (BOOL)preloadLetvPlayAddr:(NSString *)videoId{
+    evt_videoid = videoId;
     int tkey = letv_getTKey((int)time(0));
     
     NSString *str = [NSString stringWithFormat:@"http://api.letv.com/mms/out/video/playJson?id=%@&platid=1&splatid=101&format=1&tkey=%d&domain=www.letv.com",videoId,tkey];
@@ -131,7 +133,7 @@ int letv_getTKey(int time){
     if([status integerValue] == 1){
         NSDictionary *streams = videoResult[@"playurl"][@"dispatch"];
         for(id key in streams){
-            NSString *v = streams[key];
+            NSString *v = [streams[key] objectAtIndex:0];
             if([key isEqualToString:@"1080p"]){
                 [addrs addObject:@[@"高清-1080P",v]];
             }else if([key isEqualToString:@"720p"]){
@@ -228,7 +230,7 @@ int letv_getTKey(int time){
     
     [self.loadText setStringValue:@"解析中"];
     
-    NSString *str = [NSString stringWithFormat:@"%@&ctv=pc&m3v=1&termid=1&format=1&hwtype=un&ostype=MacOS10.11.0&tag=letv&sign=letv&expect=3&tn=%u&pay=0&iscpn=f9051&rateid=%@",
+    NSString *str = [NSString stringWithFormat:@"http://g3.letv.cn%@&ctv=pc&m3v=1&termid=1&format=1&hwtype=un&ostype=MacOS10.11.0&tag=letv&sign=letv&expect=3&tn=%u&pay=0&iscpn=f9051&rateid=%@",
                      sel_addr,arc4random(),sel_streamid];
     NSLog(@"VideoMetaData URL %@",str);
     NSURL* URL = [NSURL URLWithString:str];
@@ -294,8 +296,16 @@ int letv_getTKey(int time){
     [self.loadText setStringValue:@"解密流信息"];
     
     const char *result = letv_decryptM3U8([playM3U8Data bytes],[playM3U8Data length]);
+    NSData *data = [NSData dataWithBytes:result length:[playM3U8Data length]];
     
     
+    NSString *path = [NSString stringWithFormat:@"%@letv_%@_%@.m3u8",NSTemporaryDirectory(),evt_videoid,sel_streamid];
+    
+    [data writeToFile:path atomically:YES];
+    
+    sel_addr = [[NSURL URLWithString:path] absoluteString];
+    
+    [self.loadText setStringValue:@""];
     
     [self.internalPlayBtn setEnabled:YES];
     [self.QTPlayBtn setEnabled:YES];
@@ -317,7 +327,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
         return @"ERROR";
     }
     if([[aTableColumn identifier] isEqualToString:@"c_addr"]){
-        return [[object objectAtIndex:1] objectAtIndex:0];
+        return [object objectAtIndex:1];
     }else{
         return [object objectAtIndex:0];
     }
