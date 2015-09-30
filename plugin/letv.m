@@ -152,7 +152,8 @@ int letv_getTKey(int time){
 }
 
 - (void)showStreamSelect:(NSString *)videoId{
-    if(!addrs){
+    if(addrs){
+        NSLog(@"already have play addr");
         [self w_showStreamSelect];
     }else{
         dispatch_async(dispatch_get_global_queue(0, 0), ^(void){
@@ -220,6 +221,8 @@ int letv_getTKey(int time){
         [_selWindow close]; // small hack , get window by controller is always nil , connect delegate + create a new class delegate to nswindowcontroller not working..
         [streamSelPanel close];
         
+        NSLog(@"m3u8 path: %@",event);
+        
         NSURL* URL = [NSURL URLWithString:@"http://localhost:23330/pluginCall"];
         NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
         request.HTTPMethod = @"POST";
@@ -244,24 +247,7 @@ int letv_getTKey(int time){
     [self callSelf:@"letv-playQuickTime" event:sel_addr];
 }
 
-- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)rowIndex {
-    if([addrs count] <= rowIndex){
-        return NO;
-    }
-    NSArray *object = [addrs objectAtIndex:rowIndex];
-    if(!object){
-        return NO;
-    }
-    [self.internalPlayBtn setEnabled:NO];
-    [self.QTPlayBtn setEnabled:NO];
-    sel_streamid = [[[[object objectAtIndex:0]
-                    stringByReplacingOccurrencesOfString:@"高清-" withString:@""]
-                    stringByReplacingOccurrencesOfString:@"Kbps" withString:@""]
-                                                                lowercaseString];
-    sel_addr = [object objectAtIndex:1];
-    
-    [self.loadText setStringValue:@"解析中"];
-    
+- (NSString *)getM3U8URL{
     NSString *str = [NSString stringWithFormat:@"http://g3.letv.cn%@&ctv=pc&m3v=1&termid=1&format=1&hwtype=un&ostype=MacOS10.11.0&tag=letv&sign=letv&expect=3&tn=%u&pay=0&iscpn=f9051&rateid=%@",
                      sel_addr,arc4random(),sel_streamid];
     NSLog(@"VideoMetaData URL %@",str);
@@ -281,35 +267,33 @@ int letv_getTKey(int time){
     NSURLResponse * response = nil;
     NSError * error = nil;
     NSData * playJSONData = [NSURLConnection sendSynchronousRequest:request
-                                                          returningResponse:&response
-                                                                      error:&error];
+                                                  returningResponse:&response
+                                                              error:&error];
     if(error || !playJSONData){
-        [self.loadText setStringValue:@"网络错误"];
-        return NO;
+        return NULL;
     }
-
+    
     NSError *jsonError;
-    NSDictionary *videoResult = [NSJSONSerialization JSONObjectWithData:playJSONData options:NSJSONReadingMutableContainers error:&jsonError];
+    NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:playJSONData options:NSJSONReadingMutableContainers error:&jsonError];
     
     if(jsonError){
-        [self.loadText setStringValue:@"JSON 错误"];
         NSLog(@"JSON ERROR:%@",jsonError);
-        return NO;
+        return NULL;
     }
-    
-    m3u8_addr = videoResult[@"location"];
-    
-    if(!m3u8_addr){
-        [self.loadText setStringValue:@"解析失败"];
-        return NO;
-    }
-    
-    [self.loadText setStringValue:@"载入流信息"];
-    
-    URL = [NSURL URLWithString:m3u8_addr];
-    request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"GET";
 
+    return jsonResult[@"location"];
+}
+
+- (NSData *)getM3U8Data{
+    NSString *str = [NSString stringWithFormat:@"http://g3.letv.cn%@&ctv=pc&m3v=1&termid=1&format=1&hwtype=un&ostype=MacOS10.11.0&tag=letv&sign=letv&expect=3&tn=%u&pay=0&iscpn=f9051&rateid=%@",
+                     sel_addr,arc4random(),sel_streamid];
+    NSLog(@"VideoMetaData URL %@",str);
+    NSURL* URL = [NSURL URLWithString:str];
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"GET";
+    
+    NSUserDefaults *settingsController = [NSUserDefaults standardUserDefaults];
+    NSString *xff = [settingsController objectForKey:@"xff"];
     if([xff length] > 4){
         [request setValue:xff forHTTPHeaderField:@"X-Forwarded-For"];
         [request setValue:xff forHTTPHeaderField:@"Client-IP"];
@@ -317,30 +301,69 @@ int letv_getTKey(int time){
     
     [request addValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.99 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
     
-    NSData * playM3U8Data = [NSURLConnection sendSynchronousRequest:request
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    NSData * m3u8Data = [NSURLConnection sendSynchronousRequest:request
                                                   returningResponse:&response
                                                               error:&error];
-    if(error || !playM3U8Data){
-        [self.loadText setStringValue:@"网络错误"];
+    if(error || !m3u8Data){
+        return NULL;
+    }
+    return m3u8Data;
+}
+
+- (void)setText:(NSString *)text{
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+         [self.loadText setStringValue:text];
+    });
+}
+
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)rowIndex {
+    if([addrs count] <= rowIndex){
         return NO;
     }
+    NSArray *object = [addrs objectAtIndex:rowIndex];
+    if(!object){
+        return NO;
+    }
+    [self.internalPlayBtn setEnabled:NO];
+    [self.QTPlayBtn setEnabled:NO];
+    sel_streamid = [[[[object objectAtIndex:0]
+                    stringByReplacingOccurrencesOfString:@"高清-" withString:@""]
+                    stringByReplacingOccurrencesOfString:@"Kbps" withString:@""]
+                                                                lowercaseString];
+    sel_addr = [object objectAtIndex:1];
     
-    [self.loadText setStringValue:@"解密流信息"];
+    [self setText:@"解析中"];
     
-    const char *result = letv_decryptM3U8([playM3U8Data bytes],[playM3U8Data length]);
-    NSData *data = [NSData dataWithBytes:result length:[playM3U8Data length]];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^(void){
+        m3u8_addr = [self getM3U8URL];
+        
+        if(!m3u8_addr){
+            [self setText:@"解析失败"];
+            return;
+        }
+        
+        [self setText:@"载入流信息"];
+        
+        NSData * m3u8_data = [self getM3U8Data];
+        if(!m3u8_data){
+            [self setText:@"网络错误"];
+            return;
+        }
+        
+        [self setText:@"解密流信息"];
+        
+        const char *result = letv_decryptM3U8([m3u8_data bytes],[m3u8_data length]);
+        NSData *data = [NSData dataWithBytes:result length:[m3u8_data length]];
+        NSString *path = [NSString stringWithFormat:@"%@letv_%@_%@.m3u8",NSTemporaryDirectory(),evt_videoid,sel_streamid];
+        [data writeToFile:path atomically:YES];
+        
+        sel_addr = [[NSURL URLWithString:path] absoluteString];
+        [self setText:@"解析成功"];
+        [self.internalPlayBtn setEnabled:YES];
+    });
     
-    
-    NSString *path = [NSString stringWithFormat:@"%@letv_%@_%@.m3u8",NSTemporaryDirectory(),evt_videoid,sel_streamid];
-    
-    [data writeToFile:path atomically:YES];
-    
-    sel_addr = [[NSURL URLWithString:path] absoluteString];
-    
-    [self.loadText setStringValue:@""];
-    
-    [self.internalPlayBtn setEnabled:YES];
-    //[self.QTPlayBtn setEnabled:YES];
     return YES;
 }
 
