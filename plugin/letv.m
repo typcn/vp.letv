@@ -208,7 +208,7 @@ int letv_getTKey(int time){
 
 - (void)callSelf:(NSString *)name event:(NSString *)event{
     dispatch_async(dispatch_get_main_queue(), ^(void){
-        [settingsPanel close];
+        [streamSelPanel close];
         NSURL* URL = [NSURL URLWithString:@"http://localhost:23330/pluginCall"];
         NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
         request.HTTPMethod = @"POST";
