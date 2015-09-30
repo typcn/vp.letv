@@ -20,7 +20,7 @@
                         <rect key="frame" x="52" y="69" width="376" height="156"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <animations/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="暂时没有设置项，如果遇到问题请反馈到 typcncom@gmail.com" id="50P-T5-pnv">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="暂时没有设置项，如果遇到问题请反馈到 typcncom@gmail.com   PS 如果点击播放没反应请等几秒，还没反应就再点一次。。" id="50P-T5-pnv">
                             <font key="font" size="13" name=".PingFangSC-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
