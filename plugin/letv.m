@@ -19,6 +19,7 @@
 
 @property (strong) NSWindowController* settingsPanel;
 @property (strong) NSWindowController* streamSelPanel;
+@property (strong) IBOutlet NSWindow *selWindow;
 @property (weak) IBOutlet NSButton *internalPlayBtn;
 @property (weak) IBOutlet NSButton *QTPlayBtn;
 @property (weak) IBOutlet NSTextField *loadText;
@@ -33,7 +34,6 @@
 - (bool)load:(int)version{
     
     NSLog(@"VP-letv is loaded");
-    
     return true;
 }
 
@@ -152,22 +152,31 @@ int letv_getTKey(int time){
 }
 
 - (void)showStreamSelect:(NSString *)videoId{
-    bool suc = [self preloadLetvPlayAddr:videoId];
-    if(!suc){
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:@"视频解析失败，请稍后再试。如果持续无法使用，请点击帮助 -> 反馈"];
-        [alert runModal];
+    if(!addrs){
+        [self w_showStreamSelect];
     }else{
-
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            NSString *path = [[NSBundle bundleForClass:[self class]]
-                              pathForResource:@"selectStream" ofType:@"nib"];
-            streamSelPanel =[[NSWindowController alloc] initWithWindowNibPath:path owner:self];
-            [streamSelPanel showWindow:self];
-            NSLog(@"showWindow");
+        dispatch_async(dispatch_get_global_queue(0, 0), ^(void){
+            bool suc = [self preloadLetvPlayAddr:videoId];
+            if(!suc){
+                NSAlert *alert = [[NSAlert alloc] init];
+                [alert setMessageText:@"视频解析失败，请稍后再试。如果持续无法使用，请点击帮助 -> 反馈"];
+                [alert runModal];
+            }else{
+                [self w_showStreamSelect];
+            }
         });
     }
 }
+
+- (void)w_showStreamSelect{
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        NSString *path = [[NSBundle bundleForClass:[self class]]
+                          pathForResource:@"selectStream" ofType:@"nib"];
+        streamSelPanel =[[NSWindowController alloc] initWithWindowNibPath:path owner:self];
+        [streamSelPanel showWindow:self];
+    });
+}
+
 
 - (bool)canHandleEvent:(NSString *)eventName{
     // Eventname format is pluginName-str
@@ -208,7 +217,9 @@ int letv_getTKey(int time){
 
 - (void)callSelf:(NSString *)name event:(NSString *)event{
     dispatch_async(dispatch_get_main_queue(), ^(void){
+        [_selWindow close]; // small hack , get window by controller is always nil , connect delegate + create a new class delegate to nswindowcontroller not working..
         [streamSelPanel close];
+        
         NSURL* URL = [NSURL URLWithString:@"http://localhost:23330/pluginCall"];
         NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
         request.HTTPMethod = @"POST";

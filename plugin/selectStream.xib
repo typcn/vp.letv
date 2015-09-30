@@ -9,6 +9,7 @@
                 <outlet property="QTPlayBtn" destination="mjZ-ZD-3D5" id="9Xb-c2-APJ"/>
                 <outlet property="internalPlayBtn" destination="fnR-L0-2Jo" id="7TM-qI-6IO"/>
                 <outlet property="loadText" destination="ixl-pb-2O6" id="N10-j2-veb"/>
+                <outlet property="selWindow" destination="QvC-M9-y7g" id="AB2-9a-Iuf"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -122,6 +123,9 @@
                 </subviews>
                 <animations/>
             </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="c2H-gU-eTG"/>
+            </connections>
         </window>
     </objects>
 </document>
