@@ -171,7 +171,7 @@ int letv_getTKey(int time){
 
 - (bool)canHandleEvent:(NSString *)eventName{
     // Eventname format is pluginName-str
-    if([eventName isEqualToString:@"letv-playvideo"]){
+    if([eventName containsString:@"letv-"]){
         return true;
     }
     return false;
@@ -206,12 +206,31 @@ int letv_getTKey(int time){
 }
 
 
+- (void)callSelf:(NSString *)name event:(NSString *)event{
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        NSURL* URL = [NSURL URLWithString:@"http://localhost:23330/pluginCall"];
+        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
+        request.HTTPMethod = @"POST";
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        NSDictionary* bodyObject = @{
+                                     @"action": name,
+                                     @"data": event
+                                     };
+        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyObject options:kNilOptions error:NULL];
+        NSURLConnection* connection = [NSURLConnection connectionWithRequest:request delegate:nil];
+        [connection scheduleInRunLoop:[NSRunLoop mainRunLoop]
+                              forMode:NSDefaultRunLoopMode];
+        [connection start];
+        [settingsPanel close];
+    });
+}
+
 - (IBAction)internalPlay:(id)sender {
-    
+    [self callSelf:@"letv-playInApp" event:sel_addr];
 }
 
 - (IBAction)qtPlay:(id)sender {
-    
+    [self callSelf:@"letv-playQuickTime" event:sel_addr];
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)rowIndex {
@@ -222,6 +241,8 @@ int letv_getTKey(int time){
     if(!object){
         return NO;
     }
+    [self.internalPlayBtn setEnabled:NO];
+    [self.QTPlayBtn setEnabled:NO];
     sel_streamid = [[[[object objectAtIndex:0]
                     stringByReplacingOccurrencesOfString:@"高清-" withString:@""]
                     stringByReplacingOccurrencesOfString:@"Kbps" withString:@""]
