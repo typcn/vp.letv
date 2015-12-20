@@ -7,17 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FD0CCC5A1BAEE47D008FD9BF /* letv.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0CCC591BAEE47D008FD9BF /* letv.m */; settings = {ASSET_TAGS = (); }; };
-		FD0CCC5D1BAEE73D008FD9BF /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD0CCC5C1BAEE73D008FD9BF /* Settings.xib */; settings = {ASSET_TAGS = (); }; };
-		FD0CCC5F1BAEE8F0008FD9BF /* Inject.js in Resources */ = {isa = PBXBuildFile; fileRef = FD0CCC5E1BAEE8F0008FD9BF /* Inject.js */; settings = {ASSET_TAGS = (); }; };
+		FD0CCC5A1BAEE47D008FD9BF /* letv.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0CCC591BAEE47D008FD9BF /* letv.m */; };
+		FD0CCC5D1BAEE73D008FD9BF /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD0CCC5C1BAEE73D008FD9BF /* Settings.xib */; };
+		FD0CCC5F1BAEE8F0008FD9BF /* Inject.js in Resources */ = {isa = PBXBuildFile; fileRef = FD0CCC5E1BAEE8F0008FD9BF /* Inject.js */; };
 		FD5984841BB5E2AE001E0B17 /* vp_letv_test.m in Sources */ = {isa = PBXBuildFile; fileRef = FD5984831BB5E2AE001E0B17 /* vp_letv_test.m */; };
-		FD59848D1BB5E5C3001E0B17 /* letv.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0CCC591BAEE47D008FD9BF /* letv.m */; settings = {ASSET_TAGS = (); }; };
-		FD5984931BB5E98F001E0B17 /* VPPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5984921BB5E98F001E0B17 /* VPPlugin.framework */; settings = {ASSET_TAGS = (); }; };
-		FD5984941BB5E98F001E0B17 /* VPPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5984921BB5E98F001E0B17 /* VPPlugin.framework */; settings = {ASSET_TAGS = (); }; };
+		FD59848D1BB5E5C3001E0B17 /* letv.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0CCC591BAEE47D008FD9BF /* letv.m */; };
+		FD5984931BB5E98F001E0B17 /* VPPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5984921BB5E98F001E0B17 /* VPPlugin.framework */; };
+		FD5984941BB5E98F001E0B17 /* VPPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5984921BB5E98F001E0B17 /* VPPlugin.framework */; };
 		FD5984951BB5E9D0001E0B17 /* VPPlugin.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FD5984921BB5E98F001E0B17 /* VPPlugin.framework */; };
-		FD59849A1BB5F589001E0B17 /* selectStream.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD5984991BB5F589001E0B17 /* selectStream.xib */; settings = {ASSET_TAGS = (); }; };
-		FD59849B1BB5F589001E0B17 /* selectStream.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD5984991BB5F589001E0B17 /* selectStream.xib */; settings = {ASSET_TAGS = (); }; };
-		FD5CEDFA1BBB965400D8C2E8 /* testdata.m3u8 in Resources */ = {isa = PBXBuildFile; fileRef = FD5CEDF91BBB960900D8C2E8 /* testdata.m3u8 */; settings = {ASSET_TAGS = (); }; };
+		FD59849A1BB5F589001E0B17 /* selectStream.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD5984991BB5F589001E0B17 /* selectStream.xib */; };
+		FD59849B1BB5F589001E0B17 /* selectStream.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD5984991BB5F589001E0B17 /* selectStream.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,7 +44,6 @@
 		FD5984851BB5E2AE001E0B17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD5984921BB5E98F001E0B17 /* VPPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VPPlugin.framework; sourceTree = SOURCE_ROOT; };
 		FD5984991BB5F589001E0B17 /* selectStream.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = selectStream.xib; sourceTree = "<group>"; };
-		FD5CEDF91BBB960900D8C2E8 /* testdata.m3u8 */ = {isa = PBXFileReference; lastKnownFileType = file; path = testdata.m3u8; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +101,6 @@
 		FD5984821BB5E2AE001E0B17 /* vp.letv.test */ = {
 			isa = PBXGroup;
 			children = (
-				FD5CEDF91BBB960900D8C2E8 /* testdata.m3u8 */,
 				FD5984831BB5E2AE001E0B17 /* vp_letv_test.m */,
 				FD5984851BB5E2AE001E0B17 /* Info.plist */,
 			);
@@ -198,7 +195,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD5CEDFA1BBB965400D8C2E8 /* testdata.m3u8 in Resources */,
 				FD59849B1BB5F589001E0B17 /* selectStream.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
