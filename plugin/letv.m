@@ -359,8 +359,13 @@ int letv_getTKey(int time){
         const char *result = letv_decryptM3U8([m3u8_data bytes],[m3u8_data length]);
         NSData *data = [NSData dataWithBytes:result length:[m3u8_data length]];
         NSString *path = [NSString stringWithFormat:@"%@bilimac_http_serv/letv_%@_%@.m3u8",NSTemporaryDirectory(),evt_videoid,sel_streamid];
-        [data writeToFile:path atomically:YES];
-        
+        NSString *string = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        NSString *strTo = @"#EXT-X-ENDLIST";
+        if ([string containsString:strTo]) {
+            NSRange range = [string rangeOfString:strTo];
+            string = [string substringToIndex:range.location + strTo.length];
+        }
+        [string writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
         sel_addr = [NSString stringWithFormat:@"http://localhost:23330/temp_content/letv_%@_%@.m3u8",evt_videoid,sel_streamid];
         [self setText:@"解析成功"];
         [self.internalPlayBtn setEnabled:YES];
