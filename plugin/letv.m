@@ -210,6 +210,7 @@ int letv_getTKey(int time){
                           pathForResource:@"Settings" ofType:@"nib"];
         settingsPanel =[[NSWindowController alloc] initWithWindowNibPath:path owner:self];
         [settingsPanel showWindow:self];
+        [settingsPanel.window makeKeyAndOrderFront:self];
     });
     return;
 }
